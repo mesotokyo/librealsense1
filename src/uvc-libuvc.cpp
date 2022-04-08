@@ -112,7 +112,18 @@ namespace rsimpl
                     if(status < 0) LOG_ERROR("libusb_release_interface(...) returned " << libusb_error_name(status));
                 }
 
-                for(auto & sub : subdevices) if(sub.handle) uvc_close(sub.handle);
+                //for(auto & sub : subdevices) if(sub.handle) uvc_close(sub.handle);
+                for(auto & sub : subdevices)
+                {
+                    if(sub.handle)
+                    {
+                        if (sub.handle->dev == uvcdevice && uvcdevice->ref == 1) {
+                            // uvcdevice will be unrefed with uvc_close()
+                            uvcdevice = nullptr;
+                        }
+                        uvc_close(sub.handle);
+                    }
+                }
                 if(claimed_interfaces.size()) if(uvcdevice) uvc_unref_device(uvcdevice);
             }
 
