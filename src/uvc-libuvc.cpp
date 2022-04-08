@@ -379,7 +379,7 @@ namespace rsimpl
             case RS_OPTION_COLOR_SATURATION: return set_pu<uint16_t>(handle, subdevice, pu_unit, UVC_PU_SATURATION_CONTROL, value);
             case RS_OPTION_COLOR_SHARPNESS: return set_pu<uint16_t>(handle, subdevice, pu_unit, UVC_PU_SHARPNESS_CONTROL, value);
             case RS_OPTION_COLOR_WHITE_BALANCE: return set_pu<uint16_t>(handle, subdevice, pu_unit, UVC_PU_WHITE_BALANCE_TEMPERATURE_CONTROL, value);
-            case RS_OPTION_COLOR_ENABLE_AUTO_EXPOSURE: return set_pu<uint8_t>(handle, subdevice, ct_unit, UVC_CT_AE_MODE_CONTROL, value ? 2 : 1); // Modes - (1: manual) (2: auto) (4: shutter priority) (8: aperture priority)
+            case RS_OPTION_COLOR_ENABLE_AUTO_EXPOSURE: return set_pu<uint8_t>(handle, subdevice, ct_unit, UVC_CT_AE_MODE_CONTROL, value ? 8 : 1); // Modes - (1: manual) (2: auto) (4: shutter priority) (8: aperture priority) WARN: `auto` is not supported by F200, so need to use `8` instead.
             case RS_OPTION_COLOR_ENABLE_AUTO_WHITE_BALANCE: return set_pu<uint8_t>(handle, subdevice, pu_unit, UVC_PU_WHITE_BALANCE_TEMPERATURE_AUTO_CONTROL, value);
             case RS_OPTION_FISHEYE_GAIN: {
                 assert(subdevice == 3);
