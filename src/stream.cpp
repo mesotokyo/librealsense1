@@ -75,7 +75,7 @@ subdevice_mode_selection native_stream::get_mode() const
         }   
         throw std::logic_error("no mode found"); // Should never happen, select_modes should throw if no mode can be found
     }
-    throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
 }
 
 rs_intrinsics native_stream::get_intrinsics() const 
@@ -101,56 +101,56 @@ rs_intrinsics native_stream::get_rectified_intrinsics() const
 
 double native_stream::get_frame_metadata(rs_frame_metadata frame_metadata) const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_metadata(stream, frame_metadata);
 }
 
 bool native_stream::supports_frame_metadata(rs_frame_metadata frame_metadata) const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->supports_frame_metadata(stream, frame_metadata);
 }
 
 unsigned long long native_stream::get_frame_number() const
 { 
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_number(stream);
 }
 
 double native_stream::get_frame_timestamp() const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_timestamp(stream);
 }
 
 long long native_stream::get_frame_system_time() const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_system_time(stream);
 }
 
 const uint8_t * native_stream::get_frame_data() const
 {
-    if(!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if(!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return (const uint8_t *) archive->get_frame_data(stream);
 }
 
 int native_stream::get_frame_stride() const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_stride(stream);
 }
 
 int native_stream::get_frame_bpp() const
 {
-    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << stream);
+    if (!is_enabled()) throw std::runtime_error(to_string() << "stream not enabled: " << rs_stream_to_string(stream));
     if (!archive) throw  std::runtime_error(to_string() << "streaming not started!");
     return archive->get_frame_bpp(stream);
 }
