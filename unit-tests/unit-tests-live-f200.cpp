@@ -140,6 +140,29 @@ TEST_CASE( "F200 device extrinsics are within expected parameters", "[live] [f20
 }
 
 ///////////////////////////
+// warming up //
+///////////////////////////
+
+TEST_CASE("warming up because rs_wait_for_frames fails in first time...")
+{
+    safe_context ctx;
+    REQUIRE(rs_get_device_count(ctx, require_no_error()) == 1);
+
+    rs_device * dev = rs_get_device(ctx, 0, require_no_error());
+    REQUIRE(dev != nullptr);
+    REQUIRE(rs_get_device_name(dev, require_no_error()) == std::string("Intel RealSense F200"));
+
+    SECTION("WARMING UP")
+    {
+        rs_enable_stream(dev, RS_STREAM_DEPTH, 640, 480, RS_FORMAT_Z16, 15, require_no_error());
+        rs_start_device(dev, require_no_error());
+        //rs_wait_for_frames(dev, require_no_error());
+        rs_stop_device(dev, require_no_error());
+        rs_disable_stream(dev, RS_STREAM_DEPTH, require_no_error());
+    }
+}
+
+///////////////////////////
 // Depth streaming tests //
 ///////////////////////////
 
